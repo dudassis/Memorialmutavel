@@ -38,8 +38,7 @@
 
         const grupos = {};
         memorias.forEach(m => {
-          //const ano = m.ano || new Date(m.data).getFullYear();
-          const ano = m.ano;
+        const ano = m.ano;
 
           if (!grupos[ano]) grupos[ano] = [];
           grupos[ano].push(m);
@@ -74,8 +73,7 @@
 
             const dataSpan = document.createElement("span");
             dataSpan.classList.add("item-date");
-           // dataSpan.innerText = memoria.data || "";
-           dataSpan.innerText = memoria.timestamp
+            dataSpan.innerText = memoria.timestamp
            ? new Date(memoria.timestamp * 1000).toLocaleDateString("pt-BR")
            : "";
 
@@ -89,18 +87,7 @@
             contextoP.innerText = memoria.contexto || memoria.texto || "";
             itemDiv.appendChild(contextoP);
 
-            /*const linkA = document.createElement("a");
-            linkA.classList.add("item-link");
-            linkA.href = "#";
-            linkA.innerText = memoria.tipo === "arquivo" ? `Ver Arquivo (CID: ${memoria.cid})` : `Ler Conteúdo (CID: ${memoria.cid})`;
-            itemDiv.appendChild(linkA);*/
-
-            /*const cidText = document.createElement("p");
-            cidText.classList.add("item-cid");
-            cidText.innerText = `CID: ${memoria.cid}`;
-            itemDiv.appendChild(cidText);*/
-            const cidLimpo = memoria.cid.replace("CID_", "");
-
+          const cidLimpo = memoria.cid.replace("CID_", "");
           const cidText = document.createElement("p");
           cidText.classList.add("item-cid");
           cidText.innerText = `CID: ${cidLimpo}`;

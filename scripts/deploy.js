@@ -44,23 +44,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-/*const hre = require("hardhat");
-
-async function main() {
-  console.log("🚀 Fazendo deploy do contrato MemoriaImutavel...");
-
-  // Carrega o contrato compilado com o nome correto
-  const MemoriaImutavel = await hre.ethers.deployContract("MemoriaImutavel");
-
-  // Aguarda o deploy ser finalizado
-  await MemoriaImutavel.waitForDeployment();
-
-  console.log(`✅ Contrato implantado com sucesso!`);
-  console.log(`📄 Endereço do contrato: ${MemoriaImutavel.target}`);
-}
-
-// Executa o deploy
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});*/

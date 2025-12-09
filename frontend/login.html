@@ -147,7 +147,7 @@
         return;
       }
 
-      // Salva no localStorage (poderia ser substituído por backend futuramente)
+      // Salva no localStorage
       const user = { name, email, username, password };
       localStorage.setItem("user_" + username, JSON.stringify(user));
 

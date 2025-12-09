@@ -39,7 +39,7 @@ body {
   background-color: #ffffff;
   border-radius: 16px;
   display: flex;
-  overflow: visible; /* permite crescer */
+  overflow: visible; 
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
@@ -244,8 +244,7 @@ form {
 
 /* LOGO DO LOGIN */
 .logo-login {
-  width: 200px;   /* tamanho que você quiser no LOGIN */
-  height: auto;
+  width: 200px;   
   margin: 0 auto 20px auto;
   display: block;
   object-fit: contain;
@@ -253,7 +252,7 @@ form {
 
 /* LOGO DO CADASTRO */
 .logo-signup {
-  width: 100px;   /* tamanho que você quiser no CADASTRO */
+  width: 100px;   
   height: auto;
   margin: 0 auto 20px auto;
   display: block;

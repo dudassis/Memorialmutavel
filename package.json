@@ -1,7 +1,7 @@
 {
   "name": "memoria_imutavel",
   "version": "1.0.0",
-  "description": "Projeto de armazenamento imutável usando Hardhat local node",
+  "description": "Projeto de armazenamento imutável",
   "main": "index.js",
   "scripts": {
     "start": "node backend/index.js",
