@@ -80,7 +80,7 @@ O contrato grava:
 
 ---
 
-# ⚙️ **Rodando o Backend**
+#  **Rodando o Backend**
 
 ```
 cd backend
@@ -155,7 +155,7 @@ https://gateway.pinata.cloud/ipfs/QmABC123XYZ
 
 ---
 
-# 🧠 **Contrato Inteligente – MemoriaImutavel.sol**
+#  **Contrato Inteligente – MemoriaImutavel.sol**
 
 O contrato armazena:
 
