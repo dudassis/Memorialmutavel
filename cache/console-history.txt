@@ -1,0 +1,19 @@
+console.log("Total de memórias registradas:", total.toString());
+const total = await contrato.getTotalMemorias();
+const contrato = new ethers.Contract(contractAddress, contratoJson.abi, signer);
+const [signer] = await ethers.getSigners();
+const contractAddress = "0x0F8f61b2Fb818993068F0Cd01826FB15E2A00E74";
+const contratoJson = require("./artifacts/contracts/MemoriaImutavel.sol/MemoriaImutavel.json");
+console.log("Total de memórias registradas:", total.toString());
+// 5. Testar com uma funçconst total = await contrato.getTotalMemorias();
+const contrato = new ethers.Contract(contractAddress, contratoJson.abi, signer);
+// 4. Criar a instância do contrato
+rs();
+// 3. Pegar o signer (sua contaconst [signer] = await ethers.getSigne
+const contractAddress = "0x0F8f61b2Fb818993068F0Cd01826FB15E2A00E74";
+// 1. Importar o JSON compilado do contrato
+// Conectar o contrato ao signer (sua conta)const contrato = new ethers.Contract(contractAddress, contractABI, ethers.provider.getSigner());
+];  // cole aqui o ABI completo do contratoctABI = [
+// AB
+// Endereço do contrato
+await ethers.provider.getCode("0x0F8f61b2Fb818993068F0Cd01826FB15E2A00E74")

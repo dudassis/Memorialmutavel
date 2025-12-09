@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memória Imutável - Hub</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script defer src="app.js"></script>
+
+  <!-- Bloqueio de acesso se não estiver logado -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("logged") !== "true") {
+        alert("Você precisa fazer login para acessar o Memorial Imutável!");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</head>
+
+
+<body>
+  <button id="logoutBtn" class="logout-btn">Sair</button>
+
+  <div class="container hub-principal">
+
+    <header class="header-logo">
+      <h1>Memória Imutável</h1>
+      <p class="subtitulo">Preservando suas lembranças com segurança e afeto.</p>
+    </header>
+
+    <!-- Conexão MetaMask -->
+    <section class="card-secao wallet-section">
+      <h2>🔗 Conexão</h2>
+      <button id="connectWalletBtn" class="botao-primario">Conectar MetaMask</button>
+      <p id="walletStatus" class="status-texto">Carteira não conectada</p>
+    </section>
+
+    <hr class="separador">
+
+    <!-- Upload de Memórias -->
+    <section class="card-secao upload-section">
+      <h2>🖼️ Registrar Memória Visual</h2>
+
+      <div class="input-group">
+        <label for="fileInput" class="upload-label">Selecione seu PDF ou Imagem:</label>
+        <input type="file" id="fileInput" accept="image/*,.pdf,.txt,.doc,.docx" class="input-file-custom">
+      </div>
+
+      <div class="input-group full-width">
+        <label for="customName">Nome do Arquivo (Opcional):</label>
+        <input type="text" id="customName" placeholder="Ex: Foto de Natal 2023">
+      </div>
+
+      <div class="context-grid">
+        <div class="input-group">
+          <label for="anoFoto">Ano da Memória:</label>
+          <input type="number" id="anoFoto" placeholder="Ex: 2004">
+        </div>
+        <div class="input-group">
+          <label for="dataFoto">Data Específica:</label>
+          <input type="date" id="dataFoto">
+        </div>
+      </div>
+
+      <div class="input-group full-width">
+        <label for="contextoFoto">Contexto (Descrição da Foto/Documento):</label>
+        <textarea id="contextoFoto" placeholder="Ex: Foto da família na reunião de Natal" rows="3"></textarea>
+      </div>
+
+      <button id="sendBtn" class="botao-acao full-width">📤 Enviar e Registrar Arquivo</button>
+      <progress id="progressBar" value="0" max="100"></progress>
+      <p id="result" class="result-message"></p>
+    </section>
+
+    <hr class="separador">
+
+    <!-- Diário / Carta -->
+    <section class="card-secao diario-section">
+      <h2>📝 Diário Pessoal e Cartas</h2>
+
+      <div class="editor-container">
+        <div class="editor-toolbar">
+          <button class="toolbar-btn">B</button>
+          <button class="toolbar-btn">I</button>
+          <button class="toolbar-btn">🖼️</button>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="diarioTitulo">Título da Carta (Opcional):</label>
+          <input type="text" id="diarioTitulo" placeholder="Ex: Reflexões do Primeiro Semestre">
+        </div>
+
+        <div class="input-group">
+          <label>Data da Carta:</label>
+          <input type="date" id="dataCarta">
+        </div>
+
+        <textarea id="cartaTexto" class="text-editor" placeholder="Escreva sua carta, diário ou lembrança aqui..."></textarea>
+      </div>
+
+      <button id="sendCartaBtn" class="botao-acao full-width">✉️ Salvar Diário/Carta</button>
+    </section>
+
+    <hr class="separador">
+
+    <!-- Botão Histórico -->
+    <section class="card-secao history-section">
+      <button id="openHistoryBtn" class="botao-secundario full-width">📜 Ver Histórico de Memórias</button>
+    </section>
+
+  </div>
+
+  <!-- Script para redirecionar ao Histórico -->
+  <script>
+    const historyBtn = document.getElementById("openHistoryBtn");
+    if (historyBtn) {
+      historyBtn.addEventListener("click", () => {
+        window.location.href = "historico.html";
+      });
+    }
+  </script>
+</body>
+</html>

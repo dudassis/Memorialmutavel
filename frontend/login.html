@@ -1,0 +1,186 @@
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memória Imutável - Login</title>
+
+  <!-- ÍCONES -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- FONTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<!-- MODAL PERSONALIZADO -->
+<div id="customModal" class="modal">
+  <div class="modal-content">
+    <span id="modalIcon"></span>
+    <p id="modalMessage"></p>
+    <button id="modalButton">OK</button>
+  </div>
+</div>
+
+
+<body>
+
+  <div class="container">
+
+    <!-- LADO ESQUERDO -->
+    <div class="left-section">
+      <h1 class="title">Memória Imutável</h1>
+      <p class="subtitle">Guardando lembranças com amor, segurança e eternidade.</p>
+
+      <div class="divider"></div>
+
+      <p class="description">
+        Um cofre digital que preserva suas memórias afetivas usando tecnologia blockchain e armazenamento descentralizado.
+        Protegido. Seguro. Para sempre.
+      </p>
+    </div>
+
+    <!-- LADO DIREITO -->
+    <div class="right-section">
+
+      <!-- LOGIN -->
+      <div class="login-card" id="loginCard">
+        <img src="/img/logo.png" class="logo-login" alt="Logo">
+        <h2>Bem-vindo</h2>
+        <p class="card-text">Acesse sua caixa de memórias</p>
+
+        <form id="loginForm">
+          <label>Usuário</label>
+          <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" id="loginUsername" placeholder="Digite seu usuário" required>
+          </div>
+
+          <label>Senha</label>
+          <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+          </div>
+
+          <button type="submit" class="btn-login">Entrar</button>
+        </form>
+
+        <p class="change-form">
+          Não tem conta? <span onclick="showSignup()">Criar conta</span>
+        </p>
+      </div>
+
+      <!-- CADASTRO -->
+      <div class="signup-card hidden" id="signupCard">
+        <img src="/img/logo.png" class="logo-signup" alt="Logo">
+
+        <h2>Criar conta</h2>
+        <p class="card-text">Preencha para começar</p>
+
+        <form id="signupForm">
+          <label>Nome completo</label>
+          <div class="input-group">
+            <i class="fa fa-id-card"></i>
+            <input type="text" id="signupName" placeholder="Seu nome" required>
+          </div>
+
+          <label>E-mail</label>
+          <div class="input-group">
+            <i class="fa fa-envelope"></i>
+            <input type="email" id="signupEmail" placeholder="Seu e-mail" required>
+          </div>
+
+          <label>Usuário</label>
+          <div class="input-group">
+            <i class="fa fa-user-plus"></i>
+            <input type="text" id="signupUsername" placeholder="Escolha um usuário" required>
+          </div>
+
+          <label>Senha</label>
+          <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="signupPassword" placeholder="Crie uma senha" required>
+          </div>
+
+          <label>Confirmar senha</label>
+          <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="signupPasswordConfirm" placeholder="Confirme a senha" required>
+          </div>
+
+          <button type="submit" class="btn-login">Criar conta</button>
+        </form>
+
+        <p class="change-form">
+          Já tem conta? <span onclick="showLogin()">Entrar</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    function showSignup() {
+      document.getElementById("loginCard").classList.add("hidden");
+      document.getElementById("signupCard").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("signupCard").classList.add("hidden");
+      document.getElementById("loginCard").classList.remove("hidden");
+    }
+
+    // Cadastro
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("signupName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const username = document.getElementById("signupUsername").value.trim();
+      const password = document.getElementById("signupPassword").value;
+      const confirm = document.getElementById("signupPasswordConfirm").value;
+
+      if(password !== confirm) {
+        showModal("As senhas não conferem!");
+        return;
+      }
+
+      // Salva no localStorage (poderia ser substituído por backend futuramente)
+      const user = { name, email, username, password };
+      localStorage.setItem("user_" + username, JSON.stringify(user));
+
+      alert("Conta criada com sucesso! Agora faça login.");
+      showLogin();
+    });
+
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      const storedUser = localStorage.getItem("user_" + username);
+      if(!storedUser) {
+        alert("Usuário não encontrado!");
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      if(user.password !== password) {
+        alert("Senha incorreta!");
+        return;
+      }
+
+      // Login bem-sucedido
+      localStorage.setItem("logged", "true");
+      localStorage.setItem("loggedUser", username);
+      window.location.href = "index.html";
+    });
+
+    // Bloqueia acesso ao index se não estiver logado (no index.html)
+  </script>
+</body>
+</html>

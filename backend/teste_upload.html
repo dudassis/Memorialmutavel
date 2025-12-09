@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Teste Completo de Upload</h2>
+
+  <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
+    <label>Arquivo:</label><br>
+    <input type="file" name="file" required><br><br>
+
+    <label>Nome:</label><br>
+    <input type="text" name="nome" value="Teste Upload"><br><br>
+
+    <label>Ano:</label><br>
+    <input type="number" name="ano" value="2025"><br><br>
+
+    <label>Data:</label><br>
+    <input type="date" name="data"><br><br>
+
+    <label>Contexto:</label><br>
+    <textarea name="contexto">Teste manual</textarea><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+</body>
+</html>

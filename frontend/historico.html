@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Memórias Imutáveis</title>
+  <link rel="stylesheet" href="historico.css">
+</head>
+<body>
+  <div class="container historico-principal">
+    <header class="header-historico">
+      <h1>🕰️ Histórico de Memórias</h1>
+      <p class="subtitulo">Sua linha do tempo imutável, organizada por ano de registro.</p>
+    </header>
+
+    <div id="timeline" class="timeline-wrapper">
+      <!-- Memórias serão carregadas aqui -->
+    </div>
+
+    <section class="back-section">
+      <button id="backBtn" class="botao-secundario full-width">⬅️ Voltar </button>
+    </section>
+  </div>
+
+  <script>
+    const backendURL = "http://localhost:3000";
+    const timeline = document.getElementById("timeline");
+    const backBtn = document.getElementById("backBtn");
+
+    backBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    async function carregarMemorias() {
+      try {
+        const response = await fetch(`${backendURL}/memorias`);
+        const memorias = await response.json();
+
+        const grupos = {};
+        memorias.forEach(m => {
+          //const ano = m.ano || new Date(m.data).getFullYear();
+          const ano = m.ano;
+
+          if (!grupos[ano]) grupos[ano] = [];
+          grupos[ano].push(m);
+        });
+
+        const anosOrdenados = Object.keys(grupos).sort((a,b) => b-a);
+
+        anosOrdenados.forEach(ano => {
+          const groupDiv = document.createElement("div");
+          groupDiv.classList.add("timeline-group");
+          groupDiv.dataset.ano = ano;
+
+          const h3 = document.createElement("h3");
+          h3.classList.add("timeline-year");
+          h3.innerText = ano;
+          groupDiv.appendChild(h3);
+
+          const contentDiv = document.createElement("div");
+          contentDiv.classList.add("timeline-content");
+
+          grupos[ano].forEach(memoria => {
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("timeline-item");
+            itemDiv.classList.add(memoria.tipo === "arquivo" ? "memoria-arquivo" : "memoria-diario");
+
+            const headerDiv = document.createElement("div");
+            headerDiv.classList.add("item-header");
+
+            const tipoSpan = document.createElement("span");
+            tipoSpan.classList.add("item-type");
+            tipoSpan.innerText = memoria.tipo === "arquivo" ? "🖼️ Foto/PDF" : "📝 Diário/Carta";
+
+            const dataSpan = document.createElement("span");
+            dataSpan.classList.add("item-date");
+           // dataSpan.innerText = memoria.data || "";
+           dataSpan.innerText = memoria.timestamp
+           ? new Date(memoria.timestamp * 1000).toLocaleDateString("pt-BR")
+           : "";
+
+
+            headerDiv.appendChild(tipoSpan);
+            headerDiv.appendChild(dataSpan);
+            itemDiv.appendChild(headerDiv);
+
+            const contextoP = document.createElement("p");
+            contextoP.classList.add("item-contexto");
+            contextoP.innerText = memoria.contexto || memoria.texto || "";
+            itemDiv.appendChild(contextoP);
+
+            /*const linkA = document.createElement("a");
+            linkA.classList.add("item-link");
+            linkA.href = "#";
+            linkA.innerText = memoria.tipo === "arquivo" ? `Ver Arquivo (CID: ${memoria.cid})` : `Ler Conteúdo (CID: ${memoria.cid})`;
+            itemDiv.appendChild(linkA);*/
+
+            /*const cidText = document.createElement("p");
+            cidText.classList.add("item-cid");
+            cidText.innerText = `CID: ${memoria.cid}`;
+            itemDiv.appendChild(cidText);*/
+            const cidLimpo = memoria.cid.replace("CID_", "");
+
+          const cidText = document.createElement("p");
+          cidText.classList.add("item-cid");
+          cidText.innerText = `CID: ${cidLimpo}`;
+          itemDiv.appendChild(cidText);
+
+
+
+            contentDiv.appendChild(itemDiv);
+          });
+
+          groupDiv.appendChild(contentDiv);
+          timeline.appendChild(groupDiv);
+        });
+
+      } catch (err) {
+        console.error("Erro ao carregar memórias:", err);
+        timeline.innerHTML = "<p>❌ Erro ao carregar o histórico.</p>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarMemorias);
+  </script>
+</body>
+</html>
